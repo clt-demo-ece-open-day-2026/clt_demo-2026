@@ -25,7 +25,7 @@
     </div>
     <div id="status">Viewing Live Data...</div>
     <div style="margin-left: 20px; font-size: 14px; background: rgba(255,255,255,0.1); padding: 5px 15px; border-radius: 20px;">
-        👥 Live Visitors: <span id="visitorCount" style="color: #3498db; font-weight: bold;">0</span>
+        👥 Total Site Hits: <span id="totalVisits" style="color: #3498db; font-weight: bold;">0</span>
     </div>
 
     <div id="status">Viewing Live Mode</div>
@@ -137,23 +137,26 @@
     }
 // --- VISITOR COUNTER LOGIC ---
 
-// 1. Point to a new location in your database called 'visitorStats'
-const visitorRef = db.ref('visitorStats/totalCount');
+// --- PERSISTENT TOTAL VISITS COUNTER ---
 
-// 2. Increment the count every time the page loads
-// We use a transaction to safely update the number in the cloud
-visitorRef.transaction((currentValue) => {
+// 1. Reference a new folder in your database
+const totalVisitsRef = db.ref('stats/totalVisits');
+
+// 2. Add 1 to the cloud total every time the page is opened
+// This stays in the database forever until you manually delete it
+totalVisitsRef.transaction((currentValue) => {
     return (currentValue || 0) + 1;
 });
 
-// 3. Listen for changes so the number updates LIVE for everyone
-visitorRef.on('value', (snapshot) => {
-    const count = snapshot.val() || 0;
-    document.getElementById('visitorCount').innerText = count;
+// 3. Update the UI whenever the cloud number changes
+totalVisitsRef.on('value', (snapshot) => {
+    const total = snapshot.val() || 0;
+    document.getElementById('totalVisits').innerText = total.toLocaleString();
 });
 </script>
 </body>
 </html>
+
 
 
 
