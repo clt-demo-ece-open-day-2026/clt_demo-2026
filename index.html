@@ -54,7 +54,7 @@
 
     // Initialize UI
     const container = document.getElementById('container');
-    for (let i = 6; i <= 36; i++) {
+    for (let i = 8; i <= 48; i++) {
         container.innerHTML += `
             <div class="column">
                 <div class="tube-frame"><div class="liquid" id="liq-${i}"></div></div>
@@ -68,7 +68,7 @@
         const data = snapshot.val();
         if (!data) {
             // If database is empty (after reset), clear all tubes visually
-            for (let i = 6; i <= 36; i++) {
+            for (let i = 8; i <= 48; i++) {
                 document.getElementById(`liq-${i}`).style.height = "0px";
             }
             return;
@@ -77,7 +77,7 @@
         const scale = data.scale || 1;
         document.getElementById('scaleSlider').value = scale;
 
-        for (let i = 6; i <= 36; i++) {
+        for (let i = 8; i <= 48; i++) {
             const val = data.tubes ? (data.tubes[i] || 0) : 0;
             document.getElementById(`liq-${i}`).style.height = (val * scale) + "px";
         }
@@ -156,6 +156,7 @@ totalVisitsRef.on('value', (snapshot) => {
 </script>
 </body>
 </html>
+
 
 
 
