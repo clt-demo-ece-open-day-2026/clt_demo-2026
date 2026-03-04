@@ -12,7 +12,20 @@
         .tube-frame { width: 20px; height: 500px; background: white; border: 1px solid #ccc; position: relative; overflow: hidden; }
         .liquid { width: 100%; background: #3498db; position: absolute; bottom: 0; transition: height 0.3s; }
         .admin-only { display: none; } /* Hidden by default */
-    </style>
+        .site-logo {
+        height: 40px;      /* Adjust height to fit your bar */
+        width: auto;       /* Keeps the image from stretching */
+        margin-right: 20px; /* Space between logo and first button */
+        border-radius: 4px; /* Optional: rounds the corners of your logo */
+        }
+        
+        /* Optional: This ensures everything in the header stays vertically centered */
+        .controls {
+            display: flex;
+            align-items: center; 
+            padding: 10px 20px;
+        }
+</style>
 </head>
 <body>
 
@@ -29,6 +42,11 @@
     </div>
 
     <div id="status">Viewing Live Mode</div>
+    <div class="controls">
+    <img src="ece_logo.png" alt="Logo" class="site-logo">
+
+    <button id="adminBtn" onclick="enableAdmin()">🔑 Admin Login</button>
+    </div>
 </div>
 
 <div class="game-container" id="container"></div>
@@ -164,6 +182,7 @@ totalVisitsRef.on('value', (snapshot) => {
 </script>
 </body>
 </html>
+
 
 
 
