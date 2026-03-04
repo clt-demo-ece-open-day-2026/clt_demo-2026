@@ -139,16 +139,24 @@
 
 // --- PERSISTENT TOTAL VISITS COUNTER ---
 
-// 1. Reference a new folder in your database
-const totalVisitsRef = db.ref('stats/totalVisits');
+// --- UNIQUE VISITOR COUNTER ---
 
-// 2. Add 1 to the cloud total every time the page is opened
-// This stays in the database forever until you manually delete it
-totalVisitsRef.transaction((currentValue) => {
-    return (currentValue || 0) + 1;
-});
+const totalVisitsRef = db.ref('stats/uniqueVisits');
 
-// 3. Update the UI whenever the cloud number changes
+// 1. Check if this specific browser has a "Visited" tag
+const hasBeenCounted = localStorage.getItem('hasVisitedBefore');
+
+if (!hasBeenCounted) {
+    // 2. If NO tag exists, it's a new unique person! Increment the cloud total.
+    totalVisitsRef.transaction((currentValue) => {
+        return (currentValue || 0) + 1;
+    });
+
+    // 3. Now, leave a tag so we don't count them again on refresh
+    localStorage.setItem('hasVisitedBefore', 'true');
+}
+
+// 4. Always listen for the count so everyone sees the latest total
 totalVisitsRef.on('value', (snapshot) => {
     const total = snapshot.val() || 0;
     document.getElementById('totalVisits').innerText = total.toLocaleString();
@@ -156,6 +164,7 @@ totalVisitsRef.on('value', (snapshot) => {
 </script>
 </body>
 </html>
+
 
 
 
