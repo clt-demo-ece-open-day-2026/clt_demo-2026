@@ -25,15 +25,22 @@
 /* Container for the Tools Row */
 .tools-row {
     background: #2c3e50;
-    padding: 5px 20px;
+    padding: 8px 30px;
     display: flex;
-    gap: 15px;
+    justify-content: space-between; /* This spreads the groups to the sides */
+    align-items: center;
 }
 
+.left-tools, .right-tools {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
 /* Reduced Logo Sizes */
 .corner-logo {
     height: 45px; /* Small and subtle */
     width: auto;
+    flex-shrink: 0;
     /*margin: 0 15px;*/
 }
 
@@ -72,18 +79,21 @@
 </div>
 
 <div class="controls tools-row">
-    <button id="adminBtn" onclick="enableAdmin()">🔑 Login</button>
-    
-    <div class="admin-only" id="adminTools">
-        <button onclick="handleReset()" style="background:red; color:white; font-size: 11px; padding: 2px 5px;">RESET</button>
-        <input type="range" id="scaleSlider" min="0.1" max="10" step="0.1" value="1" oninput="updateScaleInDB(this.value)" style="width: 80px;">
+    <div class="left-tools">
+        <button id="adminBtn" onclick="enableAdmin()">🔑 Login</button>
+        <div class="admin-only" id="adminTools">
+            <button onclick="handleReset()" style="background:red; color:white; font-size: 11px; padding: 2px 5px;">RESET</button>
+            <input type="range" id="scaleSlider" min="0.1" max="10" step="0.1" value="1" oninput="updateScaleInDB(this.value)" style="width: 80px;">
+        </div>
     </div>
 
-    <div class="visitor-box">
-        👥 <span id="totalVisits">0</span>
-    </div>
+    <div id="status" style="font-size: 11px; opacity: 0.7;">Viewing Live Mode</div>
 
-    <div id="status" style="font-size: 11px;">Viewing Live Mode</div>
+    <div class="right-tools">
+        <div class="visitor-box">
+            👥 Visitors: <span id="totalVisits">0</span>
+        </div>
+    </div>
 </div>
 
 <div class="game-container" id="container"></div>
@@ -219,6 +229,7 @@ totalVisitsRef.on('value', (snapshot) => {
 </script>
 </body>
 </html>
+
 
 
 
