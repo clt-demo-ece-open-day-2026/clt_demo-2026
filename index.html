@@ -12,12 +12,17 @@
         .tube-frame { width: 20px; height: 500px; background: white; border: 1px solid #ccc; position: relative; overflow: hidden; }
         .liquid { width: 100%; background: #3498db; position: absolute; bottom: 0; transition: height 0.3s; }
         .admin-only { display: none; } /* Hidden by default */
-        .site-logo {
-            height: 50px; /* Increased size for better visibility */
-            width: auto;
-            border-radius: 4px;
-        }
-        
+        .side-logo {
+    height: 60px; /* Logos can be bigger now */
+    margin: 0 30px;
+}
+        .header-top {
+    background: #1a252f; /* Slightly darker than the controls */
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
         .visitor-box {
             background: rgba(255,255,255,0.1);
             padding: 5px 15px;
@@ -38,14 +43,12 @@
         }
         
         .main-heading {
-            margin: 0;
-            padding: 0 15px;
-            font-size: 28px;
-            color: #ffffff;
-            text-transform: uppercase;
-            flex-grow: 1;
-            text-align: center;
-        }
+    margin: 0;
+    font-size: 36px; /* Larger font since it has its own line */
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
         
         /* Responsive fix: makes heading smaller on phones */
         @media (max-width: 600px) {
@@ -58,10 +61,12 @@
 </head>
 <body>
 
-<div class="controls">
+<div class="header-top">
     <img src="iisc_logo.png" alt="Logo 1" class="site-logo">
-
     <h1 class="main-heading">Everything is Normal !!</h1>
+    <img src="ece_logo.png" alt="Logo 2" class="site-logo">
+</div>
+<div class="controls">
 
     <button id="adminBtn" onclick="enableAdmin()">🔑 Admin Login</button>
     
@@ -75,7 +80,6 @@
     </div>
 
     <div id="status">Viewing Live Mode</div>
-     <img src="ece_logo.png" alt="Logo 2" class="site-logo">
 </div>
 
 <div class="game-container" id="container"></div>
@@ -211,6 +215,7 @@ totalVisitsRef.on('value', (snapshot) => {
 </script>
 </body>
 </html>
+
 
 
 
