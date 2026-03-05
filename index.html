@@ -14,21 +14,29 @@
         .admin-only { display: none; } /* Hidden by default */
        
 
-/* Top Row: Logos in corners */
+/* Container for the Top Row */
 .header-row {
     background: #1a252f;
     width: 100%;
-    padding: 10px 2px; /* Adjust 40px to move them closer/further from the edge */
+    padding: 10px 20px;
     display: flex;
-    justify-content: space-between; /* This is the "magic" that pushes logos to sides */
+    justify-content: space-between; 
     align-items: center;
+    box-sizing: border-box;
     border-bottom: 1px solid #34495e;
 }
 
+/* Give both logo areas the same width to force the center text to stay centered */
 .corner-logo {
     height: 50px;
     width: auto;
-    flex-shrink: 0;
+    flex: 0 0 150px; /* This gives both logos a 'fixed' space of 150px */
+    object-fit: contain;
+}
+
+/* Ensure the right logo stays on the right of its 150px box */
+.corner-logo:last-child {
+    text-align: right;
 }
 
 .mini-heading {
@@ -36,39 +44,26 @@
     font-size: 26px;
     color: #ffffff;
     text-transform: uppercase;
-    text-align: center;
-    flex-grow: 1;
+    text-align: center; /* This now centers perfectly between the 150px anchors */
+    flex: 1; 
+    letter-spacing: 2px;
 }
-
-/* Bottom Row: Spread tools */
-.tools-row {
-    background: #2c3e50;
-    width: 100%;
-    padding: 15px 2px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: white;
-}
-
 .left-group, .right-group {
     display: flex;
     align-items: center;
-    min-width: 110px; /* Prevents center text from jumping */
+    flex: 0 0 150px; /* Must match the logo flex-basis above */
 }
 
-.right-group { justify-content: flex-end; }
+.right-group { 
+    justify-content: flex-end; 
+}
 
 .center-status {
-    font-size: 20px;
-    opacity: 0.8;
-}
-
-.visitor-box {
-    background: rgba(255,255,255,0.1);
-    padding: 8px 18px;
-    border-radius: 20px;
-    font-size: 16px;
+    flex: 1;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
 }
         
         /* Responsive fix: makes heading smaller on phones */
@@ -239,6 +234,7 @@ totalVisitsRef.on('value', (snapshot) => {
 </script>
 </body>
 </html>
+
 
 
 
