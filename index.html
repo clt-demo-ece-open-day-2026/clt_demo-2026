@@ -12,42 +12,45 @@
         .tube-frame { width: 20px; height: 500px; background: white; border: 1px solid #ccc; position: relative; overflow: hidden; }
         .liquid { width: 100%; background: #3498db; position: absolute; bottom: 0; transition: height 0.3s; }
         .admin-only { display: none; } /* Hidden by default */
-        .side-logo {
-    height: 60px; /* Logos can be bigger now */
-    margin: 0 30px;
-}
-        .header-top {
-    background: #1a252f; /* Slightly darker than the controls */
-    padding: 20px;
+       
+        .header-row {
+    background: #1a252f;
+    padding: 5px 0; /* Minimal vertical padding */
     display: flex;
     justify-content: center;
     align-items: center;
+    border-bottom: 1px solid #34495e;
 }
-        .visitor-box {
-            background: rgba(255,255,255,0.1);
-            padding: 5px 15px;
-            border-radius: 20px;
-            white-space: nowrap;
-            margin-left: 10px;
-        }
-        
-        /* Optional: This ensures everything in the header stays vertically centered */
-        .controls {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background: #2c3e50;
-        color: white;
-        padding: 10px 20px;
-        flex-wrap: nowrap; /* Prevents the heading from jumping to a new line */
-        }
-        
-        .main-heading {
+
+/* Container for the Tools Row */
+.tools-row {
+    background: #2c3e50;
+    padding: 5px 20px;
+    gap: 15px;
+}
+
+/* Reduced Logo Sizes */
+.mini-logo {
+    height: 30px; /* Small and subtle */
+    width: auto;
+    margin: 0 15px;
+}
+
+/* Reduced Heading Size */
+.mini-heading {
     margin: 0;
-    font-size: 36px; /* Larger font since it has its own line */
+    font-size: 18px; /* Compact text */
     color: #ffffff;
     text-transform: uppercase;
-    letter-spacing: 3px;
+    letter-spacing: 1px;
+}
+
+/* Shrinking the Visitor Box */
+.visitor-box {
+    background: rgba(255,255,255,0.1);
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 12px;
 }
         
         /* Responsive fix: makes heading smaller on phones */
@@ -61,25 +64,25 @@
 </head>
 <body>
 
-<div class="header-top">
-    <img src="iisc_logo.png" alt="Logo 1" class="site-logo">
-    <h1 class="main-heading">Everything is Normal !!</h1>
-    <img src="ece_logo.png" alt="Logo 2" class="site-logo">
+<div class="header-row">
+    <img src="iisc_logo.png" alt="Logo 1" class="mini-logo">
+    <h1 class="mini-heading">Everything is Normal !!</h1>
+    <img src="ece_logo.png" alt="Logo 2" class="mini-logo">
 </div>
-<div class="controls">
 
-    <button id="adminBtn" onclick="enableAdmin()">🔑 Admin Login</button>
+<div class="controls tools-row">
+    <button id="adminBtn" onclick="enableAdmin()">🔑 Login</button>
     
     <div class="admin-only" id="adminTools">
-        <button onclick="handleReset()" style="background:red; color:white;">RESET ALL</button>
-        <input type="range" id="scaleSlider" min="0.1" max="10" step="0.1" value="1" oninput="updateScaleInDB(this.value)">
+        <button onclick="handleReset()" style="background:red; color:white; font-size: 11px; padding: 2px 5px;">RESET</button>
+        <input type="range" id="scaleSlider" min="0.1" max="10" step="0.1" value="1" oninput="updateScaleInDB(this.value)" style="width: 80px;">
     </div>
 
     <div class="visitor-box">
-        👥 Visitors: <span id="totalVisits">0</span>
+        👥 <span id="totalVisits">0</span>
     </div>
 
-    <div id="status">Viewing Live Mode</div>
+    <div id="status" style="font-size: 11px;">Viewing Live Mode</div>
 </div>
 
 <div class="game-container" id="container"></div>
@@ -215,6 +218,7 @@ totalVisitsRef.on('value', (snapshot) => {
 </script>
 </body>
 </html>
+
 
 
 
