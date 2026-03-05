@@ -25,12 +25,31 @@
             align-items: center; 
             padding: 10px 20px;
         }
+        .main-heading {
+        margin: 0;
+        padding: 0 20px;
+        font-size: 24px;
+        letter-spacing: 2px;
+        color: #ffffff;
+        text-transform: uppercase;
+        flex-grow: 1; /* This pushes the login button to the right */
+        text-align: left;
+        }
+        
+        /* Responsive fix: makes heading smaller on phones */
+        @media (max-width: 600px) {
+            .main-heading {
+                font-size: 18px;
+                padding: 0 10px;
+            }
+        }
 </style>
 </head>
 <body>
 
 <div class="controls">
     <button id="adminBtn" onclick="enableAdmin()">🔑 Admin Login</button>
+    <h1 class="main-heading">Everything is Normal !!</h1>
     <div class="admin-only">
         <button onclick="handleReset()" style="background:red; color:white;">RESET ALL</button>
         <label>Y-Scale: </label>
@@ -180,6 +199,7 @@ totalVisitsRef.on('value', (snapshot) => {
 </script>
 </body>
 </html>
+
 
 
 
