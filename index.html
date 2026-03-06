@@ -135,7 +135,13 @@
     
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
-    
+    let actionHistory = [];
+
+function recordAction(id) {
+    actionHistory.push(id);
+    // Keep only the last 10 actions to save memory
+    if (actionHistory.length > 10) actionHistory.shift();
+}
     // --- APP STATE ---
     let isAdmin = false;
     let resetStep = 0; // Added this to track the 3 clicks
@@ -187,6 +193,7 @@ for (let i = 8; i <= 48; i++) {
     function increment(id) {
         if (!isAdmin) return;
         db.ref(`gameState/tubes/${id}`).transaction(current => (current || 0) + 10);
+        recordAction(id); // Save it for undo
     }
 
     function updateScaleInDB(val) {
@@ -235,6 +242,23 @@ for (let i = 8; i <= 48; i++) {
             resetStep = 0; // Reset counter if they click "Cancel"
         }
     }
+    document.addEventListener('keydown', function(event) {
+    if (isAdmin && event.ctrlKey && event.key === 'z') {
+        event.preventDefault(); // Stop default browser behavior
+        
+        if (actionHistory.length > 0) {
+            const lastTubeId = actionHistory.pop();
+            
+            // Undo the last +10
+            db.ref(`gameState/tubes/${lastTubeId}`).transaction(current => {
+                return (current || 10) - 10;
+            });
+            console.log("Undo successful for tube: " + lastTubeId);
+        } else {
+            alert("Nothing to undo!");
+        }
+    }
+});
 // --- VISITOR COUNTER LOGIC ---
 
 // --- PERSISTENT TOTAL VISITS COUNTER ---
@@ -264,6 +288,7 @@ totalVisitsRef.on('value', (snapshot) => {
 </script>
 </body>
 </html>
+
 
 
 
