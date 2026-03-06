@@ -73,6 +73,12 @@
     font-weight: bold;
     letter-spacing: 1px;
 }
+    .column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5px;
+}
         
         /* Responsive fix: makes heading smaller on phones */
         @media (max-width: 600px) {
@@ -138,6 +144,7 @@
                 <div class="tube-frame"><div class="liquid" id="liq-${i}"></div></div>
                 <button class="admin-only" onclick="increment(${i})">+</button>
                 <div>${i}</div>
+                <div style="font-weight: bold; font-size: 12px;">Count: <span id="count-${i}">0</span></div>
             </div>`;
     }
 
@@ -158,6 +165,7 @@
         for (let i = 8; i <= 48; i++) {
             const val = data.tubes ? (data.tubes[i] || 0) : 0;
             document.getElementById(`liq-${i}`).style.height = (val * scale) + "px";
+            document.getElementById(`count-${i}`).innerText = val / 10;
         }
     });
 
@@ -242,6 +250,7 @@ totalVisitsRef.on('value', (snapshot) => {
 </script>
 </body>
 </html>
+
 
 
 
