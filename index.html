@@ -57,6 +57,14 @@
 .right-group { 
     justify-content: flex-end; 
 }
+#status {
+    flex: 1; /* This is the key: it forces the text to take up all middle space */
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    opacity: 0.7;
+    margin: 0 20px;
+}
 .tools-row {
     background: #2c3e50;
     width: 100%;
@@ -288,6 +296,7 @@ totalVisitsRef.on('value', (snapshot) => {
 </script>
 </body>
 </html>
+
 
 
 
