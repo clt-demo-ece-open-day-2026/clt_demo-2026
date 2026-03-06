@@ -95,6 +95,21 @@
                 padding: 0 10px;
             }
         }
+/* Only apply horizontal scrolling on devices with a screen width smaller than 1000px */
+@media (max-width: 1000px) {
+    .game-container {
+        display: flex;
+        flex-wrap: nowrap;          /* Forces no wrapping */
+        overflow-x: auto;          /* Enables swipe-to-scroll */
+        justify-content: flex-start; 
+        padding-bottom: 20px;
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS/Android */
+    }
+
+    .column {
+        flex: 0 0 auto;            /* Tubes stay at their full width */
+    }
+}
 </style>
 </head>
 <body>
@@ -296,6 +311,7 @@ totalVisitsRef.on('value', (snapshot) => {
 </script>
 </body>
 </html>
+
 
 
 
