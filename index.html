@@ -137,17 +137,21 @@
     let resetStep = 0; // Added this to track the 3 clicks
 
     // Initialize UI
-    const container = document.getElementById('container');
-    for (let i = 8; i <= 48; i++) {
-        container.innerHTML += `
-            <div class="column">
-                <div class="tube-frame"><div class="liquid" id="liq-${i}"></div></div>
-                <button class="admin-only" onclick="increment(${i})">+</button>
-                <div>${i}</div>
-                <div style="font-weight: bold; font-size: 12px;"> <span id="count-${i}">0</span></div>
-            </div>`;
-    }
-
+const container = document.getElementById('container');
+for (let i = 8; i <= 48; i++) {
+    container.innerHTML += `
+        <div class="column">
+            <div style="font-weight: bold; font-size: 14px; margin-bottom: 5px;">
+                <span id="count-${i}">0</span>
+            </div>
+            
+            <div class="tube-frame"><div class="liquid" id="liq-${i}"></div></div>
+            
+            <button class="admin-only" onclick="increment(${i})">+</button>
+            <div>${i}</div>
+        </div>`;
+}
+    
     // 1. LISTEN FOR LIVE UPDATES
     db.ref('gameState').on('value', (snapshot) => {
         const data = snapshot.val();
@@ -250,6 +254,7 @@ totalVisitsRef.on('value', (snapshot) => {
 </script>
 </body>
 </html>
+
 
 
 
