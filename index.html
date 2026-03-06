@@ -181,7 +181,7 @@ for (let i = 8; i <= 48; i++) {
             <div class="tube-frame"><div class="liquid" id="liq-${i}"></div></div>
             
             <button class="admin-only" onclick="increment(${i})">+</button>
-            <div>${i}</div>
+            <div style="margin-top: 5px;">${i}</div>
         </div>`;
 }
     
@@ -191,6 +191,7 @@ for (let i = 8; i <= 48; i++) {
     if (!data) {
         for (let i = 8; i <= 48; i++) {
             document.getElementById(`liq-${i}`).style.height = "0px";
+            document.getElementById(`count-${i}`).innerText = "0";
         }
         document.getElementById('totalIncrements').innerText = "0"; // Reset total
         return;
@@ -203,9 +204,13 @@ for (let i = 8; i <= 48; i++) {
 
     for (let i = 8; i <= 48; i++) {
         const val = data.tubes ? (data.tubes[i] || 0) : 0;
-        document.getElementById(`liq-${i}`).style.height = (val * scale) + "px";
+        document.getElementById(`liq-${i}`).style.height = (val * scale*0.1) + "px";
         
-        sum += (val / 10); // Add the click count to the sum
+        // SHOW INCREMENT: Update the number at the top
+        const clickCount = val / 10;
+        document.getElementById(`count-${i}`).innerText = clickCount;
+        
+        sum += clickCount;
     }
 
     // Update the total display
@@ -311,6 +316,7 @@ totalVisitsRef.on('value', (snapshot) => {
 </script>
 </body>
 </html>
+
 
 
 
