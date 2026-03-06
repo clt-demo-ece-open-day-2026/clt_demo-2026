@@ -109,10 +109,14 @@
     <div id="status" style="font-size: 20px; opacity: 0.7;">Live Histogram of your Total</div>
 
     <div class="right-tools">
-        <div class="visitor-box">
-            👥 Visitors: <span id="totalVisits">0</span>
-        </div>
+    <div class="visitor-box" style="margin-right: 15px;">
+        📈 Total: <span id="totalIncrements" style="font-weight: bold;">0</span>
     </div>
+
+    <div class="visitor-box">
+        👥 Visitors: <span id="totalVisits">0</span>
+    </div>
+</div>
 </div>
 
 <div class="game-container" id="container"></div>
@@ -154,24 +158,30 @@ for (let i = 8; i <= 48; i++) {
     
     // 1. LISTEN FOR LIVE UPDATES
     db.ref('gameState').on('value', (snapshot) => {
-        const data = snapshot.val();
-        if (!data) {
-            // If database is empty (after reset), clear all tubes visually
-            for (let i = 8; i <= 48; i++) {
-                document.getElementById(`liq-${i}`).style.height = "0px";
-            }
-            return;
-        }
-
-        const scale = data.scale || 1;
-        document.getElementById('scaleSlider').value = scale;
-
+    const data = snapshot.val();
+    if (!data) {
         for (let i = 8; i <= 48; i++) {
-            const val = data.tubes ? (data.tubes[i] || 0) : 0;
-            document.getElementById(`liq-${i}`).style.height = (val * scale) + "px";
-            document.getElementById(`count-${i}`).innerText = val / 10;
+            document.getElementById(`liq-${i}`).style.height = "0px";
         }
-    });
+        document.getElementById('totalIncrements').innerText = "0"; // Reset total
+        return;
+    }
+
+    const scale = data.scale || 1;
+    document.getElementById('scaleSlider').value = scale;
+
+    let sum = 0; // Initialize sum
+
+    for (let i = 8; i <= 48; i++) {
+        const val = data.tubes ? (data.tubes[i] || 0) : 0;
+        document.getElementById(`liq-${i}`).style.height = (val * scale) + "px";
+        
+        sum += (val / 10); // Add the click count to the sum
+    }
+
+    // Update the total display
+    document.getElementById('totalIncrements').innerText = sum;
+});
 
     // 2. ADMIN ACTIONS
     function increment(id) {
@@ -254,6 +264,7 @@ totalVisitsRef.on('value', (snapshot) => {
 </script>
 </body>
 </html>
+
 
 
 
